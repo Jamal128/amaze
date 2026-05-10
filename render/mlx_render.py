@@ -280,6 +280,7 @@ def _handle_mouse(
 
         state["generator"] = generator
         state["maze"] = generator.maze
+        m.mlx_do_sync(p)
         _render_cells(
             m,
             p,
