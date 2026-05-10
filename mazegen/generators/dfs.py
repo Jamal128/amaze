@@ -64,6 +64,7 @@ def generate_animated(
         neighbour.visited = True
         stack.append(neighbour)
 
+        yield current
         yield neighbour
 
 

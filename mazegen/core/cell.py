@@ -17,11 +17,14 @@ class Cell:
         '''Removes the wall in the given direction.'''
         self.walls.discard(direction)
 
+    def add_wall(self, direction: Direction) -> None:
+        self.walls.add(direction)
+
     def has_wall(self, direction: Direction) -> bool:
         '''Returns True if the cell has a wall in the
         given direction, False otherwise.'''
         return direction in self.walls
-    
+
     def close_all(self) -> None:
         '''Closes all walls of the cell.'''
         self.walls = {
@@ -41,3 +44,7 @@ class Cell:
         if Direction.WEST in self.walls:
             value += 8
         return format(value, "X")
+
+    def reset(self) -> None:
+        self.visited = False
+        self.close_all()

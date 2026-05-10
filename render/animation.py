@@ -6,15 +6,13 @@ and call a user-supplied draw callback after each step.
 
 import time
 from collections.abc import Callable, Generator
-
 from mazegen.core.cell import Cell
-from mazegen.core.maze import Maze
 
 
 def animate(
     generator: Generator[Cell, None, None],
     draw_cell: Callable[[Cell], None],
-    delay: float = 0.01,
+    delay: float,
 ) -> None:
     """Drive a maze generator and call *draw_cell* after each carved cell.
 
@@ -25,6 +23,7 @@ def animate(
             redraws it on screen.
         delay: Seconds to sleep between steps. Set to 0 to disable.
     """
+
     for cell in generator:
         draw_cell(cell)
         if delay > 0:
@@ -34,7 +33,7 @@ def animate(
 def animate_path(
     coords: list[tuple[int, int]],
     draw_coord: Callable[[int, int], None],
-    delay: float = 0.02,
+    delay: float = 0.05,
 ) -> None:
     """Animate drawing the solution path coordinate by coordinate.
 
