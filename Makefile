@@ -22,7 +22,6 @@ lint:
 	uv run python3 -m mypy . \
 		--warn-return-any \
 		--warn-unused-ignores \
-		--ignore-missing-imports \
 		--disallow-untyped-defs \
 		--check-untyped-defs \
 		--explicit-package-bases \

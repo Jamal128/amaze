@@ -174,6 +174,14 @@ class Maze:
         return False
 
     def _is_open_3x3(self, sx: int, sy: int) -> bool:
+        '''Check if the 3x3 area starting at (sx, sy) is fully open.
+        This is used to identify large open areas that may need patching.
+        ARGS:
+            sx: Starting x coordinate of the 3x3 area.
+            sy: Starting y coordinate of the 3x3 area.
+        RETURNS:
+            True if the area is fully open, False otherwise.
+        '''
 
         for y in range(sy, sy + 3):
             for x in range(sx, sx + 3):
@@ -196,6 +204,7 @@ class Maze:
         return True
 
     def _close_middle_wall(self, sx: int, sy: int) -> None:
+        '''Close the middle wall in a 3x3 area starting at (sx, sy).'''
 
         cell = self.get_cell(sx + 1, sy + 1)
         neighbour = self.neighbour(cell, Direction.EAST)
@@ -207,6 +216,8 @@ class Maze:
         neighbour.add_wall(Direction.WEST)
 
     def patch_large_open_areas(self) -> None:
+        '''Scan the maze for fully open 3x3 areas and
+          add walls to break them.'''
 
         for y in range(self.height - 2):
             for x in range(self.width - 2):

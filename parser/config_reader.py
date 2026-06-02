@@ -19,7 +19,8 @@ def parse_config(config_path: str) -> MazeConfig:
 
     Raises:
         FileNotFoundError: If the file does not exist.
-        ValueError: If the file is malformed, missing keys, or fails validation.
+        ValueError: If the file is malformed, missing keys
+        or fails validation.
     """
     path = Path(config_path)
     if not path.exists():
@@ -80,4 +81,5 @@ def _check_mandatory(pairs: dict[str, str]) -> None:
     """
     missing = MANDATORY_KEYS - pairs.keys()
     if missing:
-        raise ValueError(f"Missing mandatory keys: {', '.join(sorted(missing))}.")
+        raise ValueError(f"Missing mandatory keys:"
+                         f" {', '.join(sorted(missing))}.")

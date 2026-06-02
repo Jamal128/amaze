@@ -46,5 +46,7 @@ class Cell:
         return format(value, "X")
 
     def reset(self) -> None:
+        '''Resets the cell to its initial state
+        (all walls closed, not visited)'''
         self.visited = False
         self.close_all()

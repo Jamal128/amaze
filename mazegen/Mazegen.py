@@ -1,16 +1,3 @@
-"""mazegen reusable maze generation package.
-
-Quickstart::
-
-    from amazeing.mazegen import MazeGenerator
-
-    gen = MazeGenerator(width=20, height=15, seed=42, algorithm="dfs")
-    gen.generate(entry=(0, 0))
-    path = gen.solve(entry=(0, 0), exit_=(19, 14))
-    print(path)          # e.g. "EESSWW..."
-    print(gen.to_hex())  # list of hex
-    """
-
 from random import Random
 from mazegen.core.direction import Direction
 from collections.abc import Generator
@@ -29,12 +16,10 @@ class MazeGenerator:
         height: Number of rows (>= 2).
         seed: Optional RNG seed for reproducibility.
         algorithm: Generation algorithm  ``"dfs"`` or ``"prim"``.
+        perfect: If False, add random cycles to make the maze imperfect.
 
-    Example::
-
-        gen = MazeGenerator(20, 15, seed=1, algorithm="prim")
-        gen.generate(entry=(0, 0), exit_=(19, 14))
-        path = gen.solve((0, 0), (19, 14))
+    Returns:
+        MazeGenerator instance with methods to generate and solve mazes.
     """
 
     def __init__(
@@ -167,6 +152,9 @@ class MazeGenerator:
     def add_cycles(self, rng: Random, density: float) -> None:
         """
         Add random loops to make the maze imperfect.
+        Args:
+            rng: Random instance for reproducibility.
+            density: Probability of adding a cycle at each wall (0 to 1).
         """
 
         maze = self.maze
@@ -192,7 +180,6 @@ class MazeGenerator:
                     if neighbour.locked:
                         continue
 
-                    # Skip already open walls
                     if direction not in cell.walls:
                         continue
 

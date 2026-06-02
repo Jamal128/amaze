@@ -2,10 +2,8 @@
 
 import os
 import random
-import time
 from typing import Any
-
-from mlx import Mlx  # type: ignore[import]
+from mlx import Mlx  # type: ignore[import-untyped]
 
 from mazegen.Mazegen import MazeGenerator
 from mazegen.core.cell import Cell
@@ -18,7 +16,8 @@ from parser.pydantic_model import MazeConfig
 COLORS = ["red", "green", "blue"]
 
 
-def render(maze: Maze, config: MazeConfig, generator: MazeGenerator, algorithm: str, perfect: bool) -> None:
+def render(maze: Maze, config: MazeConfig, generator: MazeGenerator,
+           algorithm: str, perfect: bool) -> None:
     """Launch the MLX window and enter the event loop.
 
     Args:
@@ -44,8 +43,8 @@ def render(maze: Maze, config: MazeConfig, generator: MazeGenerator, algorithm: 
     }
     print(f"using scale {scale}px per tile")
     state["win"] = _open_window(m, p, assets, config, scale)
-    _render_cells(m, p, state["win"], assets, state["maze"], config, scale, state["color_i"])
-
+    _render_cells(m, p, state["win"], assets, state["maze"],
+                  config, scale, state["color_i"])
 
     def on_mouse(button: int, x: int, y: int, _params: Any) -> None:
         _handle_mouse(m, p, assets, config, scale, state, x, y)
@@ -139,17 +138,23 @@ def _open_window(
 
     win = m.mlx_new_window(p, width, height + 200, "A-Maze-ing")
     m.mlx_clear_window(p, win)
-    _draw_ui(m, p, win, assets, height, scale)
+    _draw_ui(m, p, win, assets, height)
     m.mlx_do_sync(p)
     return win
 
 
-def _draw_ui(m, p, win, assets, maze_height, scale):
-    m.mlx_put_image_to_window(p, win, assets["options/regen"], 0, maze_height + 50)
-    m.mlx_put_image_to_window(p, win, assets["options/animate"], 300, maze_height + 50)
-    m.mlx_put_image_to_window(p, win, assets["options/color"], 600, maze_height + 50)
-    m.mlx_put_image_to_window(p, win, assets["options/path"], 900, maze_height + 50)
-    m.mlx_put_image_to_window(p, win, assets["options/close"], 1200, maze_height + 50)
+def _draw_ui(m: Mlx, p: Any, win: Any,
+             assets: dict[str, Any], maze_height: int) -> None:
+    m.mlx_put_image_to_window(p, win,
+                              assets["options/regen"], 0, maze_height + 50)
+    m.mlx_put_image_to_window(p, win,
+                              assets["options/animate"], 300, maze_height + 50)
+    m.mlx_put_image_to_window(p, win,
+                              assets["options/color"], 600, maze_height + 50)
+    m.mlx_put_image_to_window(p, win,
+                              assets["options/path"], 900, maze_height + 50)
+    m.mlx_put_image_to_window(p, win,
+                              assets["options/close"], 1200, maze_height + 50)
 
 
 def _render_cells(
@@ -178,14 +183,16 @@ def _render_cells(
     m.mlx_clear_window(p, win)
 
     maze_height = max(scale * config.height, 512)
-    _draw_ui(m, p, win, assets, maze_height, scale)
+    _draw_ui(m, p, win, assets, maze_height)
     color = COLORS[color_i]
     for y, row in enumerate(maze.grid):
         m.mlx_do_sync(p)
         for x, cell in enumerate(row):
 
             m.mlx_put_image_to_window(
-                p, win, assets[f"cells/{color}_{scale}/{color}_{scale}_{cell.to_hex()}"], x * scale, y * scale
+                p, win, assets[f"cells/{color}_{scale}/"
+                               f"{color}_{scale}_{cell.to_hex()}"],
+                x * scale, y * scale
             )
 
             if cell.locked:
@@ -258,7 +265,7 @@ def _handle_mouse(
     generator = MazeGenerator(
             width=config.width,
             height=config.height,
-            algorithm=config.algorithm,
+            algorithm=config.algorithm or "dfs",
             perfect=config.perfect,
             seed=config.seed
         )

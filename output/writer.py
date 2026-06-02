@@ -4,10 +4,12 @@ from mazegen.solver import bfs
 
 
 def write_maze(maze: Maze, config: MazeConfig) -> None:
-    '''Function to read the generated maze and write it to the output file in the specified format.
+    '''Function to read the generated maze and
+    write it to the output file in the specified format.
     ARGS:
         maze: The generated maze to write.
-        config: The configuration containing the output file path and entry/exit coordinates.
+        config: The configuration containing the output file path and
+        entry/exit coordinates.
     '''
     with open(config.output_file, "w") as file:
         for y in range(maze.height):

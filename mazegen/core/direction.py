@@ -18,7 +18,7 @@ class Direction(Enum):
         Returns:
             A tuple (dx, dy) representing the grid displacement.
         """
-        return self.value  # type: ignore[return-value]
+        return self.value
 
     def opposite(self) -> "Direction":
         """Return the opposite cardinal direction.

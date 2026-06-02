@@ -9,8 +9,10 @@ class Coordinates(BaseModel):
     '''
     x: int
     y: int
+
     def __str__(self) -> str:
         return f"{self.x},{self.y}"
+
     def return_tuple(self) -> Tuple[int, int]:
         return (self.x, self.y)
 
@@ -41,7 +43,7 @@ class MazeConfig(BaseModel):
 
     @field_validator("entry", "exit_", mode="before")
     @classmethod
-    def parse_coordinates(cls, value: object) -> Coordinates:
+    def parse_coordinates(cls, value: str | Coordinates) -> Coordinates:
         """Parse 'x,y' string into a Coordinates model.
 
         Args:
@@ -68,7 +70,7 @@ class MazeConfig(BaseModel):
 
     @field_validator("perfect", mode="before")
     @classmethod
-    def parse_bool(cls, value: object) -> bool:
+    def parse_bool(cls, value: str | bool) -> bool:
         if isinstance(value, bool):
             return value
         val = value.strip().lower()
