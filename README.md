@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by \<jaatif-a\>[, \<sangarci\>]*
+*This project has been created as part of the 42 curriculum by <jaatif-a>,<sangarci>.
 
 # A-Maze-ing
 
@@ -6,7 +6,7 @@
 
 **A-Maze-ing** es un generador de laberintos escrito en Python. El programa lee un fichero de configuración, genera un laberinto aleatorio y reproducible, lo muestra visualmente en una ventana gráfica interactiva y escribe el resultado en un fichero de salida en formato hexadecimal.
 
-El laberinto puede ser perfecto (un único camino entre entrada y salida) o imperfecto (con múltiples caminos y bucles). Siempre contiene el patrón visual "42" dibujado con celdas completamente cerradas en el centro del laberinto.
+El laberinto puede ser perfecto (un único camino entre entrada y salida) o imperfecto (con múltiples caminos y bucles). Siempre contiene el patrón visual "42" dibujado con celdas completamente cerradas en el centro del laberinto, si no es posible pone error de mensasje y lo omite (por tamaño).
 
 ## Carcaterísticas generales
 
@@ -16,7 +16,7 @@ El laberinto puede ser perfecto (un único camino entre entrada y salida) o impe
 
 - **Modo de visualización**
     - Ventana gráfica interactiva con la librería MLX
-    - Aniamción de generación del camino en tiempo real
+    - Aniamción de generación del camino en tiempo real usando generator.
 
 - **Resolución laberintos**
     - Resolución automática con Breadth-First Search(BFS)
@@ -33,7 +33,7 @@ El laberinto puede ser perfecto (un único camino entre entrada y salida) o impe
 
 - **Exportación de datos del laberinto**
     - Exporta datos del laberinto a un archivo con el siguiente contenido:
-        - REpresentación Hexadecimal linea por linea
+        - Representación Hexadecimal linea por linea
         - Punto de entrada
         - Punto de salida
         - Resolución del camino del laberinto desde la entrada a la salida, indicando la dirección: N, S, E, W
@@ -46,9 +46,8 @@ El laberinto puede ser perfecto (un único camino entre entrada y salida) o impe
 ├── config.txt
 ├── makefile
 ├── assets/
-    ├── cells/ 
-    ├── color/
-    ├── options/
+    ├── cells/(contiene las imagenes .png de las celdas segun los muros que tengan cerrados N:1, E:2, S:4 O:8)
+    ├── options/(contiene imagenes de entrada , salida, botones...)
 ├── mazegen/
     ├── core/
     ├── generators/
@@ -62,8 +61,10 @@ El laberinto puede ser perfecto (un único camino entre entrada y salida) o impe
 ├── rander/
     ├── mlx_render.py
     └── animation.py
-├── requeriments.txt
-└── writer.py
+├── pyproject.toml
+├── output/
+    └── writer.py
+    └── OUTPUT_FILE.txt
 
 ### Requisitos
 * **Python 3.10+** 
@@ -127,7 +128,7 @@ HEIGHT=15
 ENTRY=0,0
 EXIT=19,14
 PERFECT=True
-OUTPUT_FILE=maze.txt
+OUTPUT_FILE=OUTPUT_FILE.txt
 
 * **Opcionales:**
 SEED=424242
@@ -156,7 +157,7 @@ La ventana gráfica muestra el laberinto con los siguientes controles:
 
 | Botón |         Acción                         |
 |-------|----------------------------------------|
-|REGEN  |Regenera un nuevo laberinto con animación|
+|REGEN  |Regenera un nuevo laberinto sin animaciòn|
 |ANIMATE|Anima la generación del laberinto |
 |COLOR  |Cambia el color de las paredes |
 |PATH   |Muestra/oculta el camino más corto |
@@ -169,22 +170,20 @@ La ventana gráfica muestra el laberinto con los siguientes controles:
 ### Roles de cada miembro
 |Miembro |     Responsabilidad                     |
 
-|jaatf-a |Módulo mazegen (DFS, Prim, clase Maze, Cell, Direction), solver BFS, pip, makefile, renderer MLX                     |
+|jaatf-a |Módulo mazegen (DFS, Prim, clase Maze, Cell, Direction),makefile, renderer MLX                     |
 
-|sangarci|Parser, writer, README     |
+|sangarci |Parser, writer, README, solver BFS, pyproject|
 
 ### Planificación
-Semana 1 — 
-Semana 2 — 
-Semana 3 — 
-Semana 4 — 
+Semana 1 — Hicimos el parser y las clases base como Cell, Direction y Maze
+Semana 2 — Intentamos entender toda la logica de los algoritmos y los implementamos empezando desde bfs, luego dfs y al final prim para el bonus.
+Semana 3 — Hicimos el render, que es la parse de dibujar el maze con imagenes .png y la libreria mlx.
+Semana 4 — Implementamos la clase Mazegen que es el orquestador de todo y añadimos la animacion en el render.
 
 ### ¿Cómo evolucionó?
-✅ 
-✅ 
-✅ 
-
-### ¿Qué funciono bien?
+✅ Empezamos bien la semana 1 y 2 muy bien y pudimos completar las tareas.
+✅ Se nos dificulto el entendimiento de los algoritmos y nos retrasamos un poco pero al final lo pudimos implementar en 1 semana y media.
+✅ Llegamos muy bien y super bien todo, todo funcionaba a la perfeccion.
 
 ### Herramientas utilizadas
 
