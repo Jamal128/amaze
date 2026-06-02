@@ -2,7 +2,7 @@
 from parser import parse_config
 from mazegen.Mazegen import MazeGenerator
 from render.mlx_render import render
-from writer import write_maze
+from output.writer import write_maze
 
 def main() -> None:
     try:

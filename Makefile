@@ -1,23 +1,25 @@
 install:
-	pip install -r requirements.txt
+	uv sync --extra dev
+	uv pip install ./mlx-2.2-py3-none-any.whl
 
 run:
-	python3 a_maze_ing.py config.txt
+	uv run python3 a_maze_ing.py config.txt
 
 build:
-	python3 -m build
+	uv run python3 -m build
 	cp ./dist/mazegen-1.0.0-py3-none-any.whl .
 
 debug:
-	python3 -m pdb a_maze_ing.py default_config.txt
+	uv run python3 -m pdb a_maze_ing.py default_config.txt
 
 clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} +
 	rm -rf .mypy_cache
+	rm -rf dist build *.egg-info
 
 lint:
-	flake8 --exclude=.venv,mlx .
-	python3 -m mypy . \
+	uv run flake8 --exclude=.venv,mlx .
+	uv run python3 -m mypy . \
 		--warn-return-any \
 		--warn-unused-ignores \
 		--ignore-missing-imports \
@@ -27,8 +29,8 @@ lint:
 		--exclude '^(venv|\.venv|env|mlx)/'
 
 lint-strict:
-	flake8 --exclude=.venv,mlx .
-	python3 -m mypy . \
+	uv run flake8 --exclude=.venv,mlx .
+	uv run python3 -m mypy . \
 		--strict \
 		--explicit-package-bases \
 		--exclude '^(venv|\.venv|env|mlx)/'

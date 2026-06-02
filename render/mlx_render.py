@@ -2,6 +2,7 @@
 
 import os
 import random
+import time
 from typing import Any
 
 from mlx import Mlx  # type: ignore[import]
@@ -182,23 +183,16 @@ def _render_cells(
     for y, row in enumerate(maze.grid):
         m.mlx_do_sync(p)
         for x, cell in enumerate(row):
+
             m.mlx_put_image_to_window(
                 p, win, assets[f"cells/{color}_{scale}/{color}_{scale}_{cell.to_hex()}"], x * scale, y * scale
             )
+
             if cell.locked:
                 m.mlx_put_image_to_window(
                     p,
                     win,
                     assets[f"options/{scale}_42"],
-                    x * scale,
-                    y * scale,
-                )
-            if maze._is_open_3x3(x, y):
-                # Draw a patch if this cell is part of a large open area
-                m.mlx_put_image_to_window(
-                    p,
-                    win,
-                    assets["options/light"],
                     x * scale,
                     y * scale,
                 )
@@ -243,7 +237,7 @@ def _draw_path(
         )
         m.mlx_do_sync(p)
 
-    animate_path(coords, draw_coord, delay=0.02)
+    animate_path(coords, draw_coord, delay=0.03)
 
 
 def _handle_mouse(
@@ -264,9 +258,9 @@ def _handle_mouse(
     generator = MazeGenerator(
             width=config.width,
             height=config.height,
-            seed=config.seed,
             algorithm=config.algorithm,
             perfect=config.perfect,
+            seed=config.seed
         )
     # ---------------------------------------------------------
     # REGENERATE (instant)
@@ -350,7 +344,7 @@ def _handle_mouse(
 
         animate(gen, draw_cell, delay=0.005)
         if not generator.perfect:
-            generator.add_cycles(generator.rng, density=0.35)
+            generator.add_cycles(generator.rng, density=0.17)
             generator.maze.patch_large_open_areas()
 
         _render_cells(

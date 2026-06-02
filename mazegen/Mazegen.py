@@ -93,7 +93,7 @@ class MazeGenerator:
                 f"Unknown algorithm: {self.algorithm}"
             )
         if not self.perfect:
-            self.add_cycles(self.rng, density=0.35)
+            self.add_cycles(self.rng, density=0.16)
             self.maze.patch_large_open_areas()
 
     def generate_animated(
