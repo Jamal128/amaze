@@ -189,4 +189,15 @@ Semana 4 — Implementamos la clase Mazegen que es el orquestador de todo y aña
 
 ## 📚 Recursos utilizados
 
+https://www.youtube.com/watch?v=D14YK-0MtcQ (BFS implementation in python)
+https://www.youtube.com/watch?v=bRr6EwfjbEA (explaination of random seed and sequence generation with random)
+https://www.youtube.com/watch?v=d5yzKkG1n1U (Little prim algo explaination)
+https://www.youtube.com/watch?v=4ZlRH0eK-qQ (Primm algo explaination)
+https://www.youtube.com/watch?v=pcKY4hjDrxk (BFS and DFS explaination)
+https://www.youtube.com/watch?v=bYS93r6U0zg (Video muy explicativo de la libreria mlx)
+https://www.youtube.com/watch?v=i4jespFbA1c&list=PL-2EBeDYMIbT1M9S9PEFlqJ9SgFYYbIKp&index=1 (Videos sobre pydantic)
+
+https://github.com/42paris/minilibx-linux (MLX guide)
+https://medium.com/@marcnealer/a-practical-guide-to-using-pydantic-8aafa7feebf6 (guia de pydantic)
+https://medium.com/@nacerkroudir/randomized-depth-first-search-algorithm-for-maze-generation-fb2d83702742 (DFS maze gen explaination)
 
