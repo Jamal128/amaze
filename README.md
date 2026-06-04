@@ -149,8 +149,40 @@ Prim genera laberintos con muchos callejones cortos y un aspecto más ramificado
 
 ## 📦 Código reutilizable - Paquete Mazegen
 El módulo `mazegen-*`está diseñado como un paquete reutilizable instalable con pip.
+Contiene toda la lógica de generación, resolución y acceso a la estructura del laberinto, desacoplada de la interfaz gráfica y del parser de configuración.
 
-....
+### Instalación del paquete
+ 
+```bash
+# Desde el fichero wheel generado
+pip install mazegen-1.0.0-py3-none-any.whl
+ 
+# O desde el tarball
+pip install mazegen-1.0.0.tar.gz
+```
+### Reconstruir el paquete desde las fuentes
+ 
+```bash
+# En un entorno virtual limpio
+python3 -m venv .venv
+source .venv/bin/activate
+make build
+# Los artefactos se generan en dist/
+```
+### Uso básico
+ 
+```python
+
+from mazegen import MazeGenerator
+ 
+generator = MazeGenerator(width=10, height=10, seed=42, algorithm="dfs")
+generator.generate(entry=(0, 0), exit_=(9, 9))
+print("\n".join(generator.to_hex()))
+path = generator.solve(entry=(0, 0), exit_=(9, 9))
+print(f"Path from entry to exit: {path}")
+```
+
+Esto imprimira el algoritmo usado, la estructura del maze creado y el camino mas corto de la entrada hasta la salida.
 
 ### Interfaz gráfica
 La ventana gráfica muestra el laberinto con los siguientes controles:
@@ -172,7 +204,7 @@ La ventana gráfica muestra el laberinto con los siguientes controles:
 
 |jaatf-a |Módulo mazegen (DFS, Prim, clase Maze, Cell, Direction),makefile, renderer MLX                     |
 
-|sangarci |Parser, writer, README, solver BFS, pyproject|
+|sangarci |Parser, writer, README, solver BFS, pyproject, project management y deadlines|
 
 ### Planificación
 Semana 1 — Hicimos el parser y las clases base como Cell, Direction y Maze
@@ -185,19 +217,41 @@ Semana 4 — Implementamos la clase Mazegen que es el orquestador de todo y aña
 ✅ Se nos dificulto el entendimiento de los algoritmos y nos retrasamos un poco pero al final lo pudimos implementar en 1 semana y media.
 ✅ Llegamos muy bien y super bien todo, todo funcionaba a la perfeccion.
 
+### Áreas de mejora:
+- Habría sido útil dedicar más tiempo al diseño de la arquitectura antes de empezar a codificar: algunos módulos tuvieron que refactorizarse cuando el scope creció (por ejemplo, la integración entre el renderer y el módulo mazegen).
+- Una mejor definición inicial de las interfaces entre módulos habría reducido el tiempo de integración en la semana 4.
+
+
 ### Herramientas utilizadas
+ 
+- **VS Code** — editor principal de código
+- **Git + Vogsphere** — control de versiones y entrega
+- **uv** — gestión de paquetes y entornos virtuales
+- **mypy + flake8** — análisis estático y linting
+- **pydantic** — validación del fichero de configuración
+---
+ 
 
-## 📚 Recursos utilizados
-
-https://www.youtube.com/watch?v=D14YK-0MtcQ (BFS implementation in python)
-https://www.youtube.com/watch?v=bRr6EwfjbEA (explaination of random seed and sequence generation with random)
-https://www.youtube.com/watch?v=d5yzKkG1n1U (Little prim algo explaination)
-https://www.youtube.com/watch?v=4ZlRH0eK-qQ (Primm algo explaination)
-https://www.youtube.com/watch?v=pcKY4hjDrxk (BFS and DFS explaination)
-https://www.youtube.com/watch?v=bYS93r6U0zg (Video muy explicativo de la libreria mlx)
-https://www.youtube.com/watch?v=i4jespFbA1c&list=PL-2EBeDYMIbT1M9S9PEFlqJ9SgFYYbIKp&index=1 (Videos sobre pydantic)
-
-https://github.com/42paris/minilibx-linux (MLX guide)
-https://medium.com/@marcnealer/a-practical-guide-to-using-pydantic-8aafa7feebf6 (guia de pydantic)
-https://medium.com/@nacerkroudir/randomized-depth-first-search-algorithm-for-maze-generation-fb2d83702742 (DFS maze gen explaination)
-
+### Referencias técnicas
+ 
+- [GitHub — minilibx-linux](https://github.com/42paris/minilibx-linux) — Guía oficial de la librería MLX
+- [Medium — Randomized DFS for Maze Generation](https://medium.com/@nacerkroudir/randomized-depth-first-search-algorithm-for-maze-generation-fb2d83702742) — Explicación del algoritmo DFS aplicado a laberintos
+- [Medium — A Practical Guide to Using Pydantic](https://medium.com/@marcnealer/a-practical-guide-to-using-pydantic-8aafa7feebf6) — Guía de validación con Pydantic
+### Vídeos de referencia
+ 
+- [BFS implementation in Python](https://www.youtube.com/watch?v=D14YK-0MtcQ)
+- [Random seed and sequence generation](https://www.youtube.com/watch?v=bRr6EwfjbEA)
+- [Prim's algorithm explained (1)](https://www.youtube.com/watch?v=d5yzKkG1n1U)
+- [Prim's algorithm explained (2)](https://www.youtube.com/watch?v=4ZlRH0eK-qQ)
+- [BFS and DFS explained](https://www.youtube.com/watch?v=pcKY4hjDrxk)
+- [Librería MLX explicada](https://www.youtube.com/watch?v=bYS93r6U0zg)
+- [Serie de vídeos sobre Pydantic](https://www.youtube.com/watch?v=i4jespFbA1c&list=PL-2EBeDYMIbT1M9S9PEFlqJ9SgFYYbIKp&index=1)
+### Uso de IA
+ 
+La IA (Claude) fue utilizada como apoyo en las siguientes tareas:
+ 
+- **Generación y revisión del README:** Estructuración y redacción del fichero de documentación.
+- **Consultas puntuales sobre algoritmos:** Aclaración de dudas sobre la lógica de Prim y BFS, siempre revisando y validando los resultados con el equipo.
+- **Depuración:** Consultas de apoyo para identificar errores puntuales en la lógica de generación, que posteriormente se revisaron y corrigieron manualmente.
+Todo el código del proyecto fue escrito, revisado y comprendido por los miembros del equipo. Ningún fragmento de código fue copiado directamente de una IA sin comprenderlo previamente.
+ 
