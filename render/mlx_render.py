@@ -267,7 +267,6 @@ def _handle_mouse(
             height=config.height,
             algorithm=config.algorithm or "dfs",
             perfect=config.perfect,
-            seed=config.seed
         )
     # ---------------------------------------------------------
     # REGENERATE (instant)
@@ -311,7 +310,6 @@ def _handle_mouse(
                 generator.maze,
                 config.entry.x,
                 config.entry.y,
-                generator.seed,
             )
 
         else:
@@ -319,7 +317,6 @@ def _handle_mouse(
                 generator.maze,
                 config.entry.x,
                 config.entry.y,
-                generator.seed,
             )
 
         m.mlx_clear_window(p, state["win"])

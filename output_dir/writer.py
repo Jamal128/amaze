@@ -1,6 +1,7 @@
 from mazegen.core import Maze
 from parser.pydantic_model import MazeConfig
 from mazegen.solver import bfs
+from pathlib import Path
 
 
 def write_maze(maze: Maze, config: MazeConfig) -> None:
@@ -11,6 +12,14 @@ def write_maze(maze: Maze, config: MazeConfig) -> None:
         config: The configuration containing the output file path and
         entry/exit coordinates.
     '''
+
+    output_path = Path(config.output_file)
+
+    if output_path.parent.name != "output_dir":
+        raise PermissionError(f"Cant write (Expected path: "
+                              f"output_dir/OUTPUT_FILE.txt),"
+                              f" Received: {output_path}")
+
     with open(config.output_file, "w") as file:
         for y in range(maze.height):
             for x in range(maze.width):

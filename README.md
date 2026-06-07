@@ -202,15 +202,16 @@ La ventana gráfica muestra el laberinto con los siguientes controles:
 ### Roles de cada miembro
 |Miembro |     Responsabilidad                     |
 
-|jaatf-a |Módulo mazegen (DFS, Prim, clase Maze, Cell, Direction),makefile, renderer MLX                     |
+|jaatf-a |Módulo mazegen (DFS, Prim, clase Maze, Cell, Direction),makefile, renderer MLX, fix same seed issue |
 
-|sangarci |Parser, writer, README, solver BFS, pyproject, project management y deadlines|
+|sangarci |Parser, writer, README, solver BFS, pyproject, project management y deadlines, fixing output file errores|
 
 ### Planificación
 Semana 1 — Hicimos el parser y las clases base como Cell, Direction y Maze
 Semana 2 — Intentamos entender toda la logica de los algoritmos y los implementamos empezando desde bfs, luego dfs y al final prim para el bonus.
 Semana 3 — Hicimos el render, que es la parse de dibujar el maze con imagenes .png y la libreria mlx.
 Semana 4 — Implementamos la clase Mazegen que es el orquestador de todo y añadimos la animacion en el render.
+Semana 5 - Correcion de errores detectados durante la primera evaluacion(output file overwriting, regen with same seed, not incluiding mazegen.whl file).
 
 ### ¿Cómo evolucionó?
 ✅ Empezamos bien la semana 1 y 2 muy bien y pudimos completar las tareas.
